@@ -65,7 +65,7 @@ add_message_files(
 add_service_files(
   FILES
   LastTrgPos.srv
-  Info_Robot.srv
+  InfoRobot.srv
 )
 
 ## Generate actions in the 'action' folder

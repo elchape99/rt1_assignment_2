@@ -5,7 +5,7 @@ import math
 import assignment_2_2023.msg
 import assignment_2_2023.srv
 from assignment_2_2023.msg import PlanningActionGoal, RobotInfo 
-from assignment_2_2023.srv import Info_Robot, Info_RobotResponse
+from assignment_2_2023.srv import InfoRobot, InfoRobotResponse
 
 goal_pose = [0, 0] # goal_pose[0] = x, goal_pose[1] = y
 robot_pose = [0, 0] # robot_pose[0] = x, robot_pose[1] = y
@@ -35,10 +35,10 @@ def srvCallback(req):
         z_vel_avg = sum(robot_vel_z) / len_array_z if len_array_z > 0 else 0
 
         # return all the elements computed
-        return Info_RobotResponse(distance, x_vel_avg, z_vel_avg)
+        return InfoRobotResponse(distance, x_vel_avg, z_vel_avg)
     except Exception as e:
         rospy.logerr(f"An error occurred in srvCallback: {str(e)}")
-        return Info_RobotResponse(0, 0, 0)  # Return default values in case of an error
+        return InfoRobotResponse(0, 0, 0)  # Return default values in case of an error
 
 
 def sub_goalCallback(msg):
@@ -67,11 +67,11 @@ def sub_robotCallback(msg):
 def last_target_server():
     global service, window
     #initialize the service 
-    rospy.init_node("infoRobot_server")
+    rospy.init_node("InfoRobot_server")
     window= rospy.get_param("/ws_size")
 
-    service = rospy.Service('/infoRobot', Info_Robot, srvCallback)
-    rospy.loginfo("Service is ready")
+    service = rospy.Service('/InfoRobot', InfoRobot, srvCallback)
+    rospy.loginfo("Service InfoRobot is ready")
     # nee to subscribe to reach_goal/goal for see the information about the goal
     sub_goal = rospy.Subscriber("/reaching_goal/goal", PlanningActionGoal, sub_goalCallback)
     sub_robot = rospy.Subscriber("/robot_info", RobotInfo, sub_robotCallback)
