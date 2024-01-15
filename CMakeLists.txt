@@ -64,7 +64,7 @@ add_message_files(
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  Last_Trg_Pos.srv
+  LastTrgPos.srv
   Info_Robot.srv
 )
 
